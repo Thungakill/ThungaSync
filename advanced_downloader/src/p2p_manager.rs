@@ -37,7 +37,7 @@ const BROADCAST_ADDRESS: Ipv4Addr = Ipv4Addr::new(255, 255, 255, 255);
 const HTTP_PORT: u16 = 8080;
 const MB: f32 = 1024.0 * 1024.0;
 
-const SIGNALING_SERVER_URL: &str = "wss://your-thungasync-url.pages.dev/ws"; // IMPORTANT: Replace with your actual Cloudflare URL later
+const SIGNALING_SERVER_URL: &str = "wss://cff6df5c.thungasync.pages.dev/ws";
 
 const ADJECTIVES: &[&str] = &["BLUE", "RED", "QUICK", "HAPPY", "BRIGHT", "SILENT", "FAST", "COOL", "WARM", "FRESH"];
 const NOUNS: &[&str] = &["FOX", "DOG", "CAT", "CLOUD", "STAR", "RIVER", "LEAF", "STONE", "WAVE", "PINE"];
@@ -184,11 +184,11 @@ impl P2PManager {
             Ok((ws_stream, _)) => {
                 println!("[Signaling] Connected to broker.");
                 let (mut write, _) = ws_stream.split();
-                // Use the cloned code here
+             
                 let reg_msg = RegistrationMessage {
                     r#type: "register",
                     code: &session_code_clone, 
-                    local_ip: &local_ip_str, // Use the corrected field name
+                    local_ip: &local_ip_str, 
                 };
                                    let json_msg = serde_json::to_string(&reg_msg).unwrap();
                 if write.send(WsMessage::Text(json_msg)).await.is_ok() {
