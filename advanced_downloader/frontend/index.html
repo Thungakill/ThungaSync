@@ -104,12 +104,12 @@
                             <span class="text-gray-500 text-xs">Banner Ad (e.g., 300x250)</span>
                         </div>
                     </div>
-                    <!-- Affiliate Placeholder -->
+                 
                      <a href="#" class="block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg text-center transition-colors">
                         Upgrade Your Wi-Fi?
                         <span class="block text-sm font-normal opacity-80">Check out top-rated routers</span>
                     </a>
-                    <!-- Donation Placeholder -->
+                 
                      <a href="#" class="block bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-4 rounded-lg text-center transition-colors">
                         Buy Me a Coffee
                          <span class="block text-sm font-normal opacity-80">Support development</span>
@@ -117,15 +117,14 @@
                 </div>
             </div>
         </div>
-        
-        <!-- Footer -->
+   
         <footer class="text-center text-gray-500 text-sm mt-8">
              <p>ThungaSync P2P Downloader - &copy; 2025</p>
         </footer>
     </div>
 
     <script>
-        // --- Element References ---
+    
         const connectionScreen = document.getElementById('connectionScreen');
         const dashboardScreen = document.getElementById('dashboardScreen');
         const connectionCodeInput = document.getElementById('connectionCodeInput');
@@ -142,17 +141,14 @@
         const hiveGridEl = document.getElementById('hiveGrid');
         const deviceListEl = document.getElementById('deviceList');
 
-        // --- State Variables ---
+      
         let totalSize = 0;
         let chunkStates = [];
         let lastUpdateTime = Date.now();
         let lastTotalDownloaded = 0;
 
-        // --- The URL for our Cloudflare Worker signaling server ---
-        // This will be replaced with your actual Cloudflare URL after deployment.
-        const SIGNALING_SERVER_URL = 'wss://your-thungasync-url.pages.dev/ws'; 
+        const SIGNALING_SERVER_URL = 'wss://cff6df5c.thungasync.pages.dev/ws'; 
 
-        // --- Event Listeners ---
         connectButton.addEventListener('click', () => {
             const code = connectionCodeInput.value.trim().toUpperCase();
             if (!code) {
@@ -163,7 +159,7 @@
             connectToSignalingServer(code);
         });
         
-        // Handle Enter key press in input
+      
         connectionCodeInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 connectButton.click();
@@ -184,7 +180,7 @@
                 const message = JSON.parse(event.data);
                 if (message.type === 'found' && message.localIp) {
                     connectionStatus.textContent = `Master found at ${message.localIp}. Connecting directly...`;
-                    brokerSocket.close(); // We don't need the broker anymore
+                    brokerSocket.close();
                     connectToMaster(message.localIp);
                 } else if (message.type === 'not_found') {
                     connectionStatus.textContent = `Session code '${code}' not found. Check the code and try again.`;
@@ -211,7 +207,7 @@
 
             masterSocket.onopen = () => {
                 console.log('Direct WebSocket connection to Master established.');
-                // Transition to the dashboard view
+              
                 connectionScreen.classList.add('hidden');
                 dashboardScreen.classList.remove('hidden');
                 document.body.classList.remove('flex', 'items-center', 'justify-center', 'min-h-screen');
@@ -228,7 +224,7 @@
 
             masterSocket.onclose = () => {
                 console.log('Connection to Master lost. Re-enabling connection screen.');
-                // Handle disconnection by showing the connection screen again
+              
                 dashboardScreen.classList.add('hidden');
                 connectionScreen.classList.remove('hidden');
                 document.body.classList.add('flex', 'items-center', 'justify-center', 'min-h-screen');
@@ -241,7 +237,7 @@
             };
         }
         
-        // --- UI Update Functions (mostly unchanged) ---
+    
         function formatBytes(bytes, decimals = 2) {
             if (bytes === 0) return '0 Bytes';
             const k = 1024;
@@ -342,7 +338,7 @@
             const now = Date.now();
             const timeDiff = (now - lastUpdateTime) / 1000;
 
-            if (timeDiff > 0.5) { // Update speed calculation not too frequently
+            if (timeDiff > 0.5) { 
                 const bytesDownloadedSinceLastUpdate = currentTotalDownloaded - lastTotalDownloaded;
                 const speed = bytesDownloadedSinceLastUpdate / timeDiff;
                 totalSpeedEl.textContent = `${formatBytes(speed, 2)}/s`;
